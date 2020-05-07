@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/delete_all"
+        android:orderInCategory="50"
+        android:title="Delete All"
+        app:showAsAction="never">
+
+    </item>
+
+
+    <item
+        android:id="@+id/sort_options"
+        android:title="Sort"
+        app:showAsAction="never">
+
+        <menu>
+
+            <group>
+
+                <item
+                    android:id="@+id/sort_rating"
+                    android:orderInCategory="20"
+                    android:title="Sort by Rating"
+                    app:showAsAction="never" />
+
+                <item
+                    android:id="@+id/sort_entered"
+                    android:orderInCategory="22"
+                    android:title="Sort as Entered"
+                    app:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/sort_alpha"
+                    android:orderInCategory="24"
+                    android:title="Sort Alphabetically"
+                    app:showAsAction="never"/>
+
+
+            </group>
+
+
+        </menu>
+
+    </item>
+
+</menu>
+
+
+
+
