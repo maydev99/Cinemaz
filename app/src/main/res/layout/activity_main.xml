@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/floatingActionButton"
         android:src="@drawable/ic_add"
-        android:backgroundTint="@android:color/holo_red_dark"
+        android:backgroundTint="@color/yellow"
         android:layout_gravity="bottom|end"
         android:layout_margin="32dp"/>
 

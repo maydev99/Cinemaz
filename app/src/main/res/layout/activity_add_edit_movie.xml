@@ -6,67 +6,64 @@
     android:padding="16dp">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/text_input_layout"
-        >
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/movie_name_edit_text"
             android:layout_width="250dp"
-            android:autofillHints="@string/movie_name"
             android:layout_height="wrap_content"
-            android:hint="@string/movie_name"
+            android:autofillHints="@string/movie_name"
             android:drawableEnd="@drawable/ic_local_movies"
-            android:inputType="textCapWords"/>
-
-
+            android:hint="@string/movie_name"
+            android:inputType="textCapWords" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/text_input_layout2"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:id="@+id/text_input_layout2">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="16dp"
+        android:drawableEnd="@drawable/ic_person_outline"
+        android:inputType="textCapWords">
 
-        <EditText
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/reviewer_edit_text"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/reviewer_name"
-            android:inputType="textCapWords"
             android:drawableEnd="@drawable/ic_person_outline"
-            />
-
-
+            android:layout_height="wrap_content"
+            android:hint="@string/reviewer_name" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/text_input_layout3"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:id="@+id/text_input_layout3">
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp"
+        android:drawableEnd="@drawable/ic_tv_black"
+        android:inputType="textCapWords">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/source_edit_text"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/source_to_watch"
-            android:inputType="textCapWords"
-            android:layout_marginBottom="16dp"
-            android:drawableEnd="@drawable/ic_tv_black"/>
-
+            android:drawableEnd="@drawable/ic_tv_black"
+            android:hint="@string/source_to_watch" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
-
-
 
 
     <TextView
@@ -74,18 +71,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Rating"
-        android:textColor="@android:color/black"
-        />
+        android:textColor="@android:color/black" />
 
 
     <NumberPicker
         android:id="@+id/rating_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"/>
-
-
+        android:layout_marginTop="16dp" />
 
 
 </LinearLayout>
