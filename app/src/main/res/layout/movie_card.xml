@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/aqua_marine">
+        android:background="@color/pale_turquoise">
 
         <TextView
             android:id="@+id/nameTextView"
@@ -35,7 +35,7 @@
             android:layout_marginEnd="16dp"
             android:text="Rating: 10"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

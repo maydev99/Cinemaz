@@ -1,12 +1,19 @@
 package com.bombadu.cinemaz
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.Window
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.createBitmap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -15,25 +22,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bombadu.cinemaz.db.Movie
 import com.bombadu.cinemaz.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.sort_order_dialog_layout.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var movieViewModel: MovieViewModel
+    lateinit var movieViewModel: MovieViewModel
     private val adapter = MovieAdapter()
+    private var sortOrder = "rating"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        loadSharedPrefs()
         setupRecyclerView()
+        getMovieList(sortOrder)
 
 
-        movieViewModel.getAllMovies().observe(this,
-            Observer { list ->
-                list?.let {
-                    adapter.setMovies(it)
-                    adapter.notifyDataSetChanged()
-                }
-            })
 
 
         floatingActionButton.setOnClickListener {
@@ -42,6 +46,44 @@ class MainActivity : AppCompatActivity() {
                 ADD_NOTE_REQUEST
             )
         }
+    }
+
+    private fun getMovieList(sortOrder: String) {
+        if (sortOrder == "name") {
+            movieViewModel.getAllMovies().observe(this,
+                Observer { list ->
+                    list?.let {
+                        adapter.setMovies(it)
+                        adapter.notifyDataSetChanged()
+                    }
+                })
+        } else if (sortOrder == "rating") {
+            movieViewModel.getAllMoviesByRating().observe(this,
+                Observer { list ->
+                    list?.let {
+                        adapter.setMovies(it)
+                        adapter.notifyDataSetChanged()
+                    }
+                })
+        } else if (sortOrder == "reviewer") {
+            movieViewModel.getAllMoviesByReviewer().observe(this,
+                Observer { list ->
+                    list?.let {
+                        adapter.setMovies(it)
+                        adapter.notifyDataSetChanged()
+                    }
+                })
+        } else {
+            movieViewModel.getAllMoviesBySource().observe(this,
+                Observer { list ->
+                    list?.let {
+                        adapter.setMovies(it)
+                        adapter.notifyDataSetChanged()
+                    }
+                })
+        }
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -88,10 +130,25 @@ class MainActivity : AppCompatActivity() {
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.setHasFixedSize(true)
         recycler_view.adapter = adapter
-        movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
-        movieViewModel.getAllMovies().observe(this, Observer { allMovies ->
-            allMovies?.let { adapter.setMovies(it) }
-        })
+        this.movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
+        if (sortOrder == "name") {
+            movieViewModel.getAllMovies().observe(this, Observer { allMovies ->
+                allMovies?.let { adapter.setMovies(it) }
+            })
+        } else if (sortOrder == "rating") {
+            movieViewModel.getAllMoviesByRating().observe(this, Observer { allMovies ->
+                allMovies?.let { adapter.setMovies(it) }
+            })
+        } else if (sortOrder == "reviewer") {
+            movieViewModel.getAllMoviesByReviewer().observe(this, Observer { allMovies ->
+                allMovies?.let { adapter.setMovies(it) }
+            })
+        } else {
+            movieViewModel.getAllMoviesBySource().observe(this, Observer { allMovies ->
+                allMovies?.let { adapter.setMovies(it) }
+            })
+        }
+
 
 
 
@@ -138,6 +195,82 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.delete_all -> {
+                val deleteDialog = AlertDialog.Builder(this)
+                deleteDialog.setTitle("Delete All Records")
+                deleteDialog.setMessage("Are you sure?")
+                deleteDialog.setIcon(R.mipmap.ic_launcher)
+                deleteDialog.setPositiveButton("delete") { _, _ ->
+                    movieViewModel.deleAllMovies()
+                    makeAToast("All Data Deleted")
+                }
+                deleteDialog.setNegativeButton("cancel") { _, _ ->
+                    //Closes Dialog
+                }
+                deleteDialog.show()
+
+            }
+        }
+
+
+        when (item.itemId) {
+            R.id.sort_dialog -> {
+                val dialog = Dialog(this)
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                dialog.setCancelable(true)
+                dialog.setContentView(R.layout.sort_order_dialog_layout)
+                dialog.title_button.setOnClickListener {
+                    sortOrder = "name"
+                    setupRecyclerView()
+                    getMovieList(sortOrder)
+                    saveSortOrder()
+                    dialog.cancel()
+                }
+                dialog.rating_button.setOnClickListener {
+                    sortOrder = "rating"
+                    setupRecyclerView()
+                    getMovieList(sortOrder)
+                    saveSortOrder()
+                    dialog.cancel()
+                }
+
+                dialog.reviewer_button.setOnClickListener {
+                    sortOrder = "reviewer"
+                    setupRecyclerView()
+                    getMovieList(sortOrder)
+                    saveSortOrder()
+                    dialog.cancel()
+                }
+
+                dialog.source_button.setOnClickListener {
+                    sortOrder = "source"
+                    setupRecyclerView()
+                    getMovieList(sortOrder)
+                    saveSortOrder()
+                    dialog.cancel()
+                }
+
+                dialog.show()
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun saveSortOrder() {
+        val sharedPrefs: SharedPreferences = getSharedPreferences("prefs_key", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPrefs.edit()
+        editor.putString("prefs_key", sortOrder)
+        editor.apply()
+    }
+
+    private fun loadSharedPrefs() {
+        val sharedPrefs: SharedPreferences = getSharedPreferences("prefs_key", Context.MODE_PRIVATE)
+        sortOrder = sharedPrefs.getString("prefs_key", "name").toString()
     }
 
 

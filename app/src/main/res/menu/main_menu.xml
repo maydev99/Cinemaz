@@ -10,39 +10,12 @@
 
     </item>
 
-
     <item
-        android:id="@+id/sort_options"
-        android:title="Sort"
-        app:showAsAction="never">
-
-        <menu>
-
-            <group>
-
-                <item
-                    android:id="@+id/sort_rating"
-                    android:orderInCategory="20"
-                    android:title="Sort by Rating"
-                    app:showAsAction="never" />
-
-                <item
-                    android:id="@+id/sort_entered"
-                    android:orderInCategory="22"
-                    android:title="Sort as Entered"
-                    app:showAsAction="never"/>
-
-                <item
-                    android:id="@+id/sort_alpha"
-                    android:orderInCategory="24"
-                    android:title="Sort Alphabetically"
-                    app:showAsAction="never"/>
-
-
-            </group>
-
-
-        </menu>
+        android:id="@+id/sort_dialog"
+        android:title="Sort Order"
+        android:icon="@drawable/ic_sort"
+        android:orderInCategory="20"
+        app:showAsAction="ifRoom">
 
     </item>
 

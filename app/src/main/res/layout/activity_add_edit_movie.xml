@@ -8,15 +8,20 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/text_input_layout">
+        android:id="@+id/text_input_layout"
+        >
 
-        <EditText
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/movie_name_edit_text"
             android:layout_width="250dp"
             android:autofillHints="@string/movie_name"
             android:layout_height="wrap_content"
             android:hint="@string/movie_name"
+            android:drawableEnd="@drawable/ic_local_movies"
             android:inputType="textCapWords"/>
+
+
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -34,6 +39,7 @@
             android:layout_marginTop="16dp"
             android:hint="@string/reviewer_name"
             android:inputType="textCapWords"
+            android:drawableEnd="@drawable/ic_person_outline"
             />
 
 
@@ -53,7 +59,8 @@
             android:layout_marginTop="12dp"
             android:hint="@string/source_to_watch"
             android:inputType="textCapWords"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:drawableEnd="@drawable/ic_tv_black"/>
 
 
 

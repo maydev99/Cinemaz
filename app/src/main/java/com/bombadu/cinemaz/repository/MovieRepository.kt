@@ -8,6 +8,9 @@ import com.bombadu.cinemaz.db.MovieDao
 class MovieRepository(private val movieDao: MovieDao) {
 
     val allMovies: LiveData<List<Movie>> = movieDao.getAllMovies()
+    val allMoviesByRating: LiveData<List<Movie>> = movieDao.getAllMoviesByRating()
+    val allMoviesByReviewer: LiveData<List<Movie>> = movieDao.getAllMoviesByRatingByReviewer()
+    val allMoviesBySource: LiveData<List<Movie>> = movieDao.getAllMoviesBySource()
 
     fun insertMovie(movie: Movie) {
         InsertMovieAsyncTask(
@@ -24,12 +27,12 @@ class MovieRepository(private val movieDao: MovieDao) {
 
     fun deleteMovie(movie: Movie) {
         DeleteMovieAsyncTask(
-         movieDao
+            movieDao
         ).execute(movie)
 
     }
 
-    fun updateMovie(movie: Movie){
+    fun updateMovie(movie: Movie) {
         UpdateMovieAsyncTask(
             movieDao
         ).execute(movie)

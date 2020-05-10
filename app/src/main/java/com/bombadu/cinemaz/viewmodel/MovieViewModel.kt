@@ -12,12 +12,18 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: MovieRepository
     private val allMovies: LiveData<List<Movie>>
-
+    private val allMoviesByRating: LiveData<List<Movie>>
+    private val allMoviesByReviewer: LiveData<List<Movie>>
+    private val allMoviesBySource: LiveData<List<Movie>>
 
     init {
         val movieDao = MovieDatabase.getDatabase(application, viewModelScope).movieDao()
         repository = MovieRepository(movieDao)
         allMovies = repository.allMovies
+        allMoviesByRating = repository.allMoviesByRating
+        allMoviesByReviewer = repository.allMoviesByReviewer
+        allMoviesBySource = repository.allMoviesBySource
+
     }
 
     fun insertMovie(movie: Movie) {
@@ -37,10 +43,18 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getAllMovies(): LiveData<List<Movie>> {
-        return  allMovies
+        return allMovies
     }
 
     fun getAllMoviesByRating(): LiveData<List<Movie>> {
-        return allMovies
+        return allMoviesByRating
     }
+
+    fun getAllMoviesByReviewer(): LiveData<List<Movie>> {
+        return allMoviesByReviewer
+    }
+    fun getAllMoviesBySource(): LiveData<List<Movie>> {
+        return allMoviesBySource
+    }
+
 }
